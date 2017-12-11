@@ -1,7 +1,15 @@
-<h2>{{book.title | uppercase}} Details</h2>
-<div><span>id: {{book.id}}</span></div>
-<div>
-  <label> title:
-    <input [(ngModel)]="book.title" placeholder="title">
-  </label>
+<div *ngIf="selectedBook">
+  <h2>{{ selectedBook.title | uppercase}} Details</h2>
+  <div><span>id: {{selectedBook.id}}</span></div>
+  <div>
+    <label> title:
+      <input [(ngModel)]="selectedBook.title" placeholder="title">
+    </label>
+  </div>
 </div>
+<h2>Stories for Sale</h2>
+<ul class="books">
+  <li *ngFor="let book of books" (click)="onSelect(book)">
+    <span class="badge">{{book.id}}</span>{{book.title}}
+  </li>
+</ul>
