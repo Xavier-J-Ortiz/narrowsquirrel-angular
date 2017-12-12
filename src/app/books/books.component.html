@@ -9,7 +9,7 @@
 </div>
 <h2>Stories for Sale</h2>
 <ul class="books">
-  <li *ngFor="let book of books" (click)="onSelect(book)">
+  <li [class.selected]="book === selectedBook" *ngFor="let book of books" (click)="onSelect(book)">
     <span class="badge">{{book.id}}</span>{{book.title}}
   </li>
 </ul>
