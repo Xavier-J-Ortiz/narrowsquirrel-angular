@@ -8,6 +8,7 @@ import { BooksComponent } from './books/books.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import {BookService} from './book.service';
 import { MessagesComponent } from './messages/messages.component';
+import {MessageService} from './message.service';
 
 
 @NgModule({
