@@ -15,4 +15,9 @@ export class BookService {
     return of(BOOKS);
   }
 
+  getBook(id: number): Observable<Book> {
+    this.messageService.add(`BookService fetched Book id=${id}`);
+    return of(BOOKS.find(book => book.id == id))
+  }
+
 }
