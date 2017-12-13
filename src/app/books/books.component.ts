@@ -11,15 +11,9 @@ export class BooksComponent implements OnInit {
 
   books: Book[];
 
-  selectedBook: Book;
-
   getBooks(): void {
     this.bookService.getBooks()
       .subscribe(books => this.books = books);
-  }
-
-  onSelect(book: Book): void {
-    this.selectedBook = book;
   }
 
   constructor(private bookService: BookService) { }
