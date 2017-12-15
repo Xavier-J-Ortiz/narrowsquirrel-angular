@@ -20,6 +20,11 @@ export class BookDetailComponent implements OnInit {
               private location: Location
   ) { }
 
+  save(): void {
+    this.bookService.updateBook(this.book)
+      .subscribe(() => this.goBack());
+  }
+
   ngOnInit() {
     this.getBook();
   }

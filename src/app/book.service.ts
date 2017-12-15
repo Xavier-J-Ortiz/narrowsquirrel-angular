@@ -10,6 +10,10 @@ import {pipe} from 'rxjs/util/pipe';
 @Injectable()
 export class BookService {
 
+  readonly httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
@@ -24,6 +28,24 @@ export class BookService {
       );
   }
 
+
+  /** POST: add a new book to the server */
+  addBook (book: Book): Observable<Book> {
+    return this.http.post<Book>(this.booksUrl, book, this.httpOptions).pipe(
+      tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
+      catchError(this.handleError<Book>('addBook'))
+    );
+  }
+  /** DELETE: delete the book from the server */
+  deleteBook (book: Book | number): Observable<Book> {
+    const id = typeof book === 'number' ? book : book.id;
+    const url = `${this.booksUrl}/${id}`;
+
+    return this.http.delete<Book>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted book id=${id}`)),
+      catchError(this.handleError<Book>('deleteBook'))
+    );
+  }
   getBook(id: number): Observable<Book> {
     const url = `${this.booksUrl}/${id}`;
     return this.http.get<Book>(url).pipe(
@@ -32,6 +54,24 @@ export class BookService {
     );
   }
 
+  /** PUT: update the book on the server */
+  updateBook (book: Book): Observable<any> {
+    return this.http.put(this.booksUrl, book, this.httpOptions).pipe(
+      tap(_ => this.log(`updated book id=${book.id}`)),
+      catchError(this.handleError<any>('updateBook'))
+    );
+  }
+/* GET books whose name contains search term */
+searchBooks(term: string): Observable<Book[]> {
+  if (!term.trim()) {
+    // if not search term, return empty book array.
+    return of([]);
+  }
+  return this.http.get<Book[]>(`api/books/?name=${term}`).pipe(
+    tap(_ => this.log(`found books matching "${term}"`)),
+    catchError(this.handleError<Book[]>('searchBooks', []))
+  );
+}
   private log(message: string) {
     this.messageService.add('BookService: ' + message);
   }

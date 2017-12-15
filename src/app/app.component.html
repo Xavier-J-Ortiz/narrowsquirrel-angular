@@ -2,6 +2,15 @@
 <h1>
   Welcome to {{ store }}!
 </h1>
+<div>
+  <label>Book name:
+    <input #bookName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(bookName.value); bookName.value=''">
+    add
+  </button>
+</div>
 <nav>
   <a routerLink="/books">Books</a>
   <a routerLink="/dashboard">Dashboard</a>
