@@ -15,24 +15,24 @@ export class BooksComponent implements OnInit {
     this.bookService.getBooks()
       .subscribe(books => this.books = books);
   }
+  delete(book: Book): void {
+    this.books = this.books.filter(h => h !== book);
+    this.bookService.deleteBook(book).subscribe();
+  }
 
+  add(title: string): void {
+    title = title.trim();
+    if (!title) { return; }
+    this.bookService.addBook({ title } as Book)
+      .subscribe(book => {
+        this.books.push(book);
+      });
+  }
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.getBooks();
   }
 
-  delete(book: Book): void {
-    this.books = this.books.filter(h => h !== book);
-    this.bookService.deleteBook(book).subscribe();
-  }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.bookService.addBook({ name } as Book)
-      .subscribe(book => {
-        this.books.push(book);
-      });
-  }
 }
