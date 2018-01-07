@@ -12,7 +12,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {id: 7, title: "Charlotte's Web"},
       {id: 8, title: 'Jungle Book'},
       {id: 9, title: 'Where the Wild Things Are'},
-      {id: 10, title: 'The Lion, the Witch, and the Wardrobe'},
+      {id: 10, title: 'The Lion, the Witch, and the Wardrobe'}
     ];
     return {books};
   }
